@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     fun toActivity(view: View) {
         var button: Button = view as Button
-        var intent = Intent(this@MainActivity, TopicActivity()::class.java)
+        var intent = Intent(this@MainActivity, FragmentedActivity()::class.java)
         Log.d("please", "work")
         intent.putExtra("TOPIC", button.text)
         startActivity(intent)
