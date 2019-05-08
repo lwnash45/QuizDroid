@@ -10,11 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import org.w3c.dom.Text
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ANSWER = "param1"
+
 private const val GUESS = "param2"
 
 /**
@@ -29,36 +30,39 @@ private const val GUESS = "param2"
 class AnswerFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var guess: String = ""
-    private var answer: String = ""
     private var soFar: Int = 0
-    private var total: Int = 0
     private var correct: Int = 0
+    private var topic: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             guess = it.getString(GUESS)
-            answer = it.getString(ANSWER)
             soFar = it.getInt("SO_FAR")
-            total = it.getInt("TOTAL")
             correct = it.getInt("CORRECT")
-
+            topic = it.getString("TOPIC")
         }
     }
 
     interface OnNextQuestionListener {
-        fun onNextQuestion(soFar: Int, total: Int, correct: Int)
+        fun onNextQuestion(soFar: Int, correct: Int, topic: String)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.answer_view, container, false)
 
-        var guessView: TextView = root.findViewById(R.id.yourResponse)
+        val questions = QuizApp.topicRepository.getQuiz(topic)
+        val question = questions[soFar]
+        val answer = question.options[question.correct]
+        val total = questions.size
+
+
+        var guessView: TextView = root.findViewById(R.id.yourResponse) as TextView
         guessView.text = guess
 
-        var correctView: TextView = root.findViewById(R.id.correctAnswer)
-        correctView.text = "dummy Value"
+        var correctView: TextView = root.findViewById(R.id.correctAnswer) as TextView
+        correctView.text = answer
 
 
 
@@ -69,6 +73,7 @@ class AnswerFragment : Fragment() {
         } else {
             result.text = "Incorrect..."
         }
+        soFar++
 
 
 
@@ -84,7 +89,7 @@ class AnswerFragment : Fragment() {
             if (button.text === "Finish") {
                 startActivity(Intent(activity, MainActivity()::class.java))
             } else {
-                (activity as OnNextQuestionListener).onNextQuestion(soFar, total, correct)
+                (activity as OnNextQuestionListener).onNextQuestion(soFar, correct, topic)
             }
         }
 
@@ -94,14 +99,13 @@ class AnswerFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(guess: String, answer: String, total: Int, qsSoFar: Int, correct: Int) =
+        fun newInstance(guess: String, answer: String, qsSoFar: Int, correct: Int, topic: String) =
             AnswerFragment().apply {
                 arguments = Bundle().apply {
                     putString(GUESS, guess)
-                    putString(ANSWER, answer)
-                    putInt("TOTAL", total)
                     putInt("SO_FAR", qsSoFar)
                     putInt("CORRECT", correct)
+                    putString("TOPIC", topic)
                 }
             }
     }

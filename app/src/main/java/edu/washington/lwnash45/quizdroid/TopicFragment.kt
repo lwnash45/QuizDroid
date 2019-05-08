@@ -3,6 +3,7 @@ package edu.washington.lwnash45.quizdroid
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import android.widget.TextView
 class TopicFragment : Fragment() {
 
     companion object {
-        val TOPIC = "TOPIC"
+        const val TOPIC = "TOPIC"
         fun newInstance(title: String): TopicFragment {
 
             var args = Bundle().apply {
@@ -31,7 +32,7 @@ class TopicFragment : Fragment() {
     }
 
     interface BeginQuizListener {
-        fun onBeginQuiz(total: Int)
+        fun onBeginQuiz(topic: String)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,14 +48,12 @@ class TopicFragment : Fragment() {
         titleView.text = title
 
         var descriptionView: TextView = root.findViewById(R.id.topicDes)
-        descriptionView.text = when (title) {
-            "Math" -> "The study of the measurement, relationships, and properties of quantities and sets, using numbers and symbols. Arithmetic, algebra, geometry, and calculus are branches of mathematics."
-            "Physics" -> "the science that deals with matter, energy, motion, and force."
-            else -> "A universe with superheroes based on the american made comic books"
-        }
+
+        descriptionView.text = QuizApp.topicRepository.getTopicDescription(title!!)
+
 
         root.findViewById<View>(R.id.beginButton).setOnClickListener {
-            (activity as BeginQuizListener).onBeginQuiz(3)
+            (activity as BeginQuizListener).onBeginQuiz(title!!)
         }
 
         return root

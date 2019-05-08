@@ -4,24 +4,25 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity;
+import android.util.*
 
 import kotlinx.android.synthetic.main.activity_fragmented.*
 
 class FragmentedActivity : AppCompatActivity(), TopicFragment.BeginQuizListener, QuizFragments.OnAnswerListener, AnswerFragment.OnNextQuestionListener {
 
-    override fun onBeginQuiz(total: Int) {
-        val quiz = QuizFragments.newInstance(total, 0, 0)
+    override fun onBeginQuiz(topic: String) {
+        val quiz = QuizFragments.newInstance(0, 0, topic)
         supportFragmentManager.beginTransaction().replace(R.id.fragmentFrame, quiz, "BEGIN QUIZ").commit()
     }
 
-    override fun onAnswer(guess: String, answer: String, correct: Int, soFar: Int, total: Int) {
-        val answer = AnswerFragment.newInstance(guess, answer, total, soFar, correct)
+    override fun onAnswer(guess: String, answer: String, correct: Int, soFar: Int, topic: String) {
+        val answer = AnswerFragment.newInstance(guess, answer, soFar, correct, topic)
         supportFragmentManager.beginTransaction().replace(R.id.fragmentFrame, answer, "NEXT").commit()
 
     }
 
-    override fun onNextQuestion(soFar: Int, total: Int, correct: Int) {
-        val question = QuizFragments.newInstance(total, soFar, correct)
+    override fun onNextQuestion(soFar: Int, correct: Int, topic: String) {
+        val question = QuizFragments.newInstance(soFar, correct, topic)
         supportFragmentManager.beginTransaction().replace(R.id.fragmentFrame, question, "QUESTION").commit()
     }
 
