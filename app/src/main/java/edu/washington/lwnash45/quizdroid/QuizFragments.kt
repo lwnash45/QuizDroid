@@ -46,14 +46,14 @@ class QuizFragments : Fragment() {
     }
 
     interface OnAnswerListener {
-        fun onAnswer(guess: String, answer: String, correct: Int, soFar: Int, topic: String)
+        fun onAnswer(guess: String, correct: Int, soFar: Int, topic: String)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.quiz_view, container, false)
 
-        val questions: ArrayList<QuizApp.Quiz> = QuizApp.topicRepository.getQuiz(this.topic)
+        val questions: List<QuizApp.Quiz> = QuizApp.topicRepository.getQuiz(this.topic)!!
         totalQuestions = questions.size
         val question: QuizApp.Quiz = questions[questionsSoFar]
 
@@ -86,7 +86,7 @@ class QuizFragments : Fragment() {
 
 
         submitButton.setOnClickListener {
-            (activity as OnAnswerListener).onAnswer(selectedAnswer, question.options[question.correct], correct, questionsSoFar, topic)
+            (activity as OnAnswerListener).onAnswer(selectedAnswer, correct, questionsSoFar, topic)
         }
         return root
     }

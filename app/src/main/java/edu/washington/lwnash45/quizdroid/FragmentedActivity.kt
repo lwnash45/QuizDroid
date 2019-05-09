@@ -15,8 +15,8 @@ class FragmentedActivity : AppCompatActivity(), TopicFragment.BeginQuizListener,
         supportFragmentManager.beginTransaction().replace(R.id.fragmentFrame, quiz, "BEGIN QUIZ").commit()
     }
 
-    override fun onAnswer(guess: String, answer: String, correct: Int, soFar: Int, topic: String) {
-        val answer = AnswerFragment.newInstance(guess, answer, soFar, correct, topic)
+    override fun onAnswer(guess: String, correct: Int, soFar: Int, topic: String) {
+        val answer = AnswerFragment.newInstance(guess, soFar, correct, topic)
         supportFragmentManager.beginTransaction().replace(R.id.fragmentFrame, answer, "NEXT").commit()
 
     }

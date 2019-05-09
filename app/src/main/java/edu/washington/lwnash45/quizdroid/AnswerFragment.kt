@@ -52,7 +52,7 @@ class AnswerFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.answer_view, container, false)
 
-        val questions = QuizApp.topicRepository.getQuiz(topic)
+        val questions = QuizApp.topicRepository.getQuiz(topic)!!
         val question = questions[soFar]
         val answer = question.options[question.correct]
         val total = questions.size
@@ -78,7 +78,7 @@ class AnswerFragment : Fragment() {
 
 
         var score: TextView = root.findViewById(R.id.score)
-        score.text = "You have answered $correct out of $soFar so far"
+        score.text = "You have answered $correct correct out of $soFar so far"
 
         var button: Button = root.findViewById(R.id.nextBtn)
         if (soFar >= total) {
@@ -99,7 +99,7 @@ class AnswerFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(guess: String, answer: String, qsSoFar: Int, correct: Int, topic: String) =
+        fun newInstance(guess: String, qsSoFar: Int, correct: Int, topic: String) =
             AnswerFragment().apply {
                 arguments = Bundle().apply {
                     putString(GUESS, guess)
