@@ -41,6 +41,7 @@ class QuizApp: Application() {
 
         constructor(context: Context) {
             val jsonArray = loadJsonData(context)
+
             topics = getTopics(jsonArray)
         }
 
@@ -108,7 +109,7 @@ class QuizApp: Application() {
 
         private fun loadJsonData(context: Context): JSONArray {
             val jsonString: String? = try {
-                val inputStream = context.assets.open("data/questions.json")
+                val inputStream = context.assets.open("data/custom-questions.json")
                 val size = inputStream.available()
                 val buffer = ByteArray(size)
                 inputStream.read(buffer)
