@@ -7,41 +7,18 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <Button
-            android:text="btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mathBtn"
-            android:layout_marginTop="156dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.498"
-            android:onClick="toActivity"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/physicsBtn"/>
-    <Button
-            android:text="btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498"
-            android:id="@+id/marvelBtn"
-            android:layout_marginBottom="140dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:onClick="toActivity"
-    />
-    <Button
-            android:text="btn3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" android:id="@+id/physicsBtn"
-            android:onClick="toActivity"
-            android:layout_marginBottom="68dp" app:layout_constraintBottom_toTopOf="@+id/marvelBtn"
-    />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:text="Topics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/textView3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" android:gravity="center"/>
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/topicsListView"/>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

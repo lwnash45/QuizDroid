@@ -26,8 +26,6 @@ class SettingsActivity : AppCompatActivity() {
         val update = findViewById<View>(R.id.updates) as TextView
         update.text = "Check for updates like once a month"
 
-
-
     }
 
 }

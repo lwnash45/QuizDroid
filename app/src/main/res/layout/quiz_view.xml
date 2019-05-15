@@ -2,49 +2,45 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent">
-    <RadioGroup
-            android:layout_width="248dp"
-            android:layout_height="284dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:id="@+id/radioGroup" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/submitBtn" app:layout_constraintHorizontal_bias="0.496"
-            android:layout_marginBottom="8dp">
-        <RadioButton
-                android:text="Answer 1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/answer1" android:layout_weight="1"/>
-        <RadioButton
-                android:text="Answer 2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/answer2" android:layout_weight="1"/>
-        <RadioButton
-                android:text="Answer 3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/answer3" android:layout_weight="1"/>
-        <RadioButton
-                android:text="Answer 4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/answer4" android:layout_weight="1"/>
-    </RadioGroup>
-    <TextView
-            android:text="Question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/questionText" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.703"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:gravity="center_horizontal" android:id="@+id/linearLayout">
+        <TextView
+                android:text="Question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/questionText"
+        />
+        <RadioGroup
+
+                android:id="@+id/radioGroup" android:layout_width="match_parent" android:layout_height="wrap_content"
+        >
+            <RadioButton
+                    android:text="Answer 1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/answer1" android:layout_weight="1"
+            />
+            <RadioButton
+                    android:text="Answer 2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/answer2" android:layout_weight="1"/>
+            <RadioButton
+                    android:text="Answer 3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/answer3" android:layout_weight="1"/>
+            <RadioButton
+                    android:text="Answer 4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/answer4" android:layout_weight="1"/>
+        </RadioGroup>
+    </LinearLayout>
     <Button
             android:text="Submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/submitBtn" android:layout_marginBottom="124dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:visibility="invisible"
-            android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp"/>
+            android:id="@+id/submitBtn"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="161dp" android:layout_marginBottom="168dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"/>
 </android.support.constraint.ConstraintLayout>
