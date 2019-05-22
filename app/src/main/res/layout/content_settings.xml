@@ -23,5 +23,13 @@
                 android:text="If a download is currently under way, these settings should not take effect until the next download starts."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+        <Button
+                android:text="update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/update"/>
+        <Button
+                android:text="Back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/back"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

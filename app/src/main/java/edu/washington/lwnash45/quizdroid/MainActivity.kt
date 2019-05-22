@@ -1,5 +1,7 @@
 package edu.washington.lwnash45.quizdroid
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 
+private const val URL = "http://tednewardsandbox.site44.com/questions.json"
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -21,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = applicationContext.getSharedPreferences("URL", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("URL", "http://tednewardsandbox.site44.com/questions.json")
+        editor.putString("URL", URL)
         editor.putString("UPDATES", "You don't even have to check again I doubt I'll make any updates to this app")
 
 
@@ -40,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val intent = Intent(this, SettingsActivity::class.java)
+        intent.putExtra("url", URL)
         startActivity(intent)
         return true
     }

@@ -7,20 +7,22 @@ import org.json.JSONArray
 import android.content.Context
 import org.json.JSONObject
 import java.lang.Exception
+import android.os.Environment
+import java.io.BufferedInputStream
+import java.io.File
 import java.nio.charset.Charset
 
 
 class QuizApp: Application() {
 
     companion object {
-        lateinit var shared: QuizApp
         lateinit var topicRepository: TopicRepository
     }
 
     override fun onCreate() {
         super.onCreate()
         Log.i("QUIZ_APP", "Quiz App data loaded")
-        shared = this
+
         topicRepository = QuizData(applicationContext)
     }
 
@@ -35,14 +37,18 @@ class QuizApp: Application() {
     }
 
 
-    class QuizData: QuizApp.TopicRepository {
+    inner class QuizData: QuizApp.TopicRepository {
 
         private var topics: List<Topic>
 
         constructor(context: Context) {
-            val jsonArray = loadJsonData(context)
+            var jsonArray = loadJsonDataFromStorage(context)
 
-            topics = getTopics(jsonArray)
+            if (jsonArray == null) {
+                jsonArray = loadJsonDataFromAssets(context)
+            }
+
+            topics = getTopics(jsonArray!!)
         }
 
         override fun getTopicNames(): ArrayList<String> {
@@ -107,9 +113,9 @@ class QuizApp: Application() {
             return output
         }
 
-        private fun loadJsonData(context: Context): JSONArray {
+        private fun loadJsonDataFromAssets(context: Context): JSONArray {
             val jsonString: String? = try {
-                val inputStream = context.assets.open("data/custom-questions.json")
+                val inputStream = context.assets.open("data/questions.json")
                 val size = inputStream.available()
                 val buffer = ByteArray(size)
                 inputStream.read(buffer)
@@ -118,6 +124,21 @@ class QuizApp: Application() {
                 String(buffer, Charsets.UTF_8)
             } catch (e: Exception) {
                 null
+            }
+            return JSONArray(jsonString)
+        }
+
+        private fun loadJsonDataFromStorage(context: Context): JSONArray? {
+
+            val jsonString : String?
+            val dir = Environment.getExternalStorageDirectory()
+
+            try {
+                val file = File(dir, "questions.json")
+                jsonString = BufferedInputStream(file.inputStream()).use { it.reader().use { reader -> reader.readText() } }
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                return null
             }
             return JSONArray(jsonString)
         }
